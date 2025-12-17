@@ -6,7 +6,7 @@ from Accounts.forms import SignupForm, LoginForm,PasswordChangeForm,ProfileForm
 from Accounts.models import Profile, CustomUser
 
 
-
+print("hello")
 def signup_view(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
