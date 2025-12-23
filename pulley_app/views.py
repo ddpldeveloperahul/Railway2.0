@@ -257,7 +257,7 @@ def detect_pulleys(request):
 
             model = YOLO(MODEL_PATH)
 
-            results = model.predict(source=IMAGE_PATH, save=True, verbose=False)
+            results = model.predict(source=IMAGE_PATH, save=False, verbose=False)
             if not results:
                 raise RuntimeError("No results returned by the model.")
 
@@ -441,7 +441,7 @@ def detect_pulleys(request):
                         (int((p1[0] + p3[0]) / 2 - 180), max(text_y, 30)),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6,
-                        (0, 0, 255),
+                        (255, 0, 0),
                         2,
                         cv2.LINE_AA
                     )
