@@ -296,7 +296,7 @@ def detect_pulleys(request):
 
             # Draw points
             for (cx, cy) in pulley_points:
-                cv2.circle(img, (int(cx), int(cy)), 6, (0, 255, 0), -1)
+                cv2.circle(img, (int(cx), int(cy)), 6, (0, 0, 255), -1)
             # Draw pulley indices (1, 2, 3) next to centers
             for idx, (cx, cy) in enumerate(pulley_points, start=1):
                 cv2.putText(
@@ -305,7 +305,7 @@ def detect_pulleys(request):
                     (int(cx) + 8, int(cy) - 8),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.9,
-                    (0, 255, 255),
+                    (0, 0, 255),
                     2,
                     cv2.LINE_AA
                 )
@@ -433,15 +433,15 @@ def detect_pulleys(request):
                     f"Loss vs expected:{CURRENT_TEMPERATURE_C:.1f} °C: {expected_total:.3f} mm - {total_distance_mm:.3f} mm = {loss_mm:.3f} mm",
                     # f"Estimated temperature: {estimated_temp:.2f} C"
                 ]
-                text_y = int(min(p1[1], p3[1]) - 10)
+                text_y = int(min(p1[1], p3[1]) - 150)
                 for line in info_lines:
                     cv2.putText(
                         img,
                         line,
-                        (int((p1[0] + p3[0]) / 2 - 160), max(text_y, 30)),
+                        (int((p1[0] + p3[0]) / 2 - 180), max(text_y, 30)),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.6,
-                        (255, 0, 0),
+                        (0, 0, 255),
                         2,
                         cv2.LINE_AA
                     )
