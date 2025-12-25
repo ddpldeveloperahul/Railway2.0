@@ -392,9 +392,12 @@ def detect_pulleys(request):
                 # dist12_mm = 1.8*d_px * MM_PER_PIXEL +25
                 #3x right-site
                 dist12_mm = 2.3*d_px * MM_PER_PIXEL
-                cv2.line(img, (int(p1[0]), int(p1[1])), (int(p2[0]), int(p2[1])), (0, 0, 255), 2)
+                cv2.line(img, (int(p1[0]), int(p1[1])), (int(p2[0]), int(p2[1])), (0, 0,255), 2)
                 mid12 = (int((p1[0] + p2[0]) / 2), int((p1[1] + p2[1]) / 2))
-                cv2.putText(img, f"{dist12_mm:.2f} mm", mid12, cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
+                # cv2.putText(img, f"{dist12_mm:.2f} mm", mid12, cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
+                cv2.putText(img, f"", mid12, cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
+                
+            
 
             # Compute and draw 2->3
             total_distance_mm = None
@@ -404,13 +407,15 @@ def detect_pulleys(request):
                 #3x left-site
                 # dist23_mm = 2.3*d_px * MM_PER_PIXEL
                 #4x
-                dist23_mm = 1.8*d_px * MM_PER_PIXEL+15
+                dist23_mm = 2.3*d_px * MM_PER_PIXEL+15
                 cv2.line(img, (int(p2[0]), int(p2[1])), (int(p3[0]), int(p3[1])), (255, 0, 0), 2)
                 mid23 = (int((p2[0] + p3[0]) / 2), int((p2[1] + p3[1]) / 2))
                 cv2.putText(img, f"{dist23_mm:.2f} mm", mid23, cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
 
             if dist12_mm is not None and dist23_mm is not None:
-                total_distance_mm = dist12_mm + dist23_mm
+                # total_distance_mm = dist12_mm + dist23_mm
+                total_distance_mm =  dist23_mm
+                
 
             expected_total_db = None
             loss_mm_db = None
@@ -425,12 +430,13 @@ def detect_pulleys(request):
                 info_lines = [
                     f"Temperature: {CURRENT_TEMPERATURE_C:.1f} °C",
                     f"HTL (L/2): {htl_value:.1f}",
-                    f"Pulley 1->Pulley 2: {dist12_mm:.3f} mm",
+                    # f"Pulley 1->Pulley 2: {dist12_mm:.3f} mm",
                     f"Pulley 2->Pulley 3: {dist23_mm:.3f} mm",
-                    f"Total distance (1->3): {total_distance_mm:.3f} mm",
+                    # f"Total distance (1->3): {total_distance_mm:.3f} mm",
                     f"Expected @ {CURRENT_TEMPERATURE_C:.1f} °C (HTL {htl_value:.1f}): {expected_total:.3f} mm",
-                    f"Expected 1->2: {expected_dist12:.3f} mm | 2->3: {expected_dist23:.3f} mm",
-                    f"Loss vs expected:{CURRENT_TEMPERATURE_C:.1f} °C: {expected_total:.3f} mm - {total_distance_mm:.3f} mm = {loss_mm:.3f} mm",
+                    # f"Expected 1->2: {expected_dist12:.3f} mm | 2->3: {expected_dist23:.3f} mm",
+                    # f"Expected  2->3: {expected_dist23:.3f} mm",
+                    f"Loss vs expected:{CURRENT_TEMPERATURE_C:.1f} °C: {expected_total:.3f} mm - {dist23_mm:.3f} mm = {loss_mm:.3f} mm",
                     # f"Estimated temperature: {estimated_temp:.2f} C"
                 ]
                 text_y = int(min(p1[1], p3[1]) - 150)
